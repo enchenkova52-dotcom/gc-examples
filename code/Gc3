@@ -1,0 +1,65 @@
+package com.mycompany.gc;
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Gc3 {
+    public static void main(String[] args) throws Exception {
+        System.out.println("четные удаляются, нечетные остаются \n");
+        
+        // Список для хранения НЕЧЕТНЫХ объектов (они останутся)
+        List<AutoObject> aliveObjects = new ArrayList<>();
+        
+        System.out.println("Создаем 10 объектов\n");
+        
+        for (int i = 1; i <= 100; i++) {
+            AutoObject obj = new AutoObject(i);
+            
+            // Четные сохраняем в список (они останутся жить)
+            if (i % 2 == 0) {
+                aliveObjects.add(obj);
+                
+            } else {
+             
+              
+            }
+            
+           
+        }
+        
+        System.out.println("\n сохранено четных объектов: " + aliveObjects.size());
+        System.out.println(" Нечетные объекты стали мусором (на них нет ссылок)\n");
+        
+        System.out.println("Вызываем GC");
+        System.gc();
+        
+        Thread.sleep(2000);
+        
+        System.out.println("\n=== РЕЗУЛЬТАТ ===");
+        System.out.println("Четные объекты (живые):");
+        for (AutoObject obj : aliveObjects) {
+            System.out.println(" Объект " + obj.getId() + " жив");
+        }
+        
+    }
+}
+
+class AutoObject {
+    private static int counter = 0;
+    private int id;
+    private int[] data = new int[5000]; // для нагрузки на память
+    
+    public AutoObject(int id) {
+        this.id = id;
+    }
+    
+    public int getId() {
+        return id;
+    }
+    
+    @Override
+    protected void finalize() {
+        System.out.println("нечетный объект " + id + " удалился");
+    }
+}
