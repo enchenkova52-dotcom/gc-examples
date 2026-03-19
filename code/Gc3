@@ -6,9 +6,9 @@ import java.util.List;
 
 public class Gc3 {
     public static void main(String[] args) throws Exception {
-        System.out.println("четные удаляются, нечетные остаются \n");
+        System.out.println("четные остаются, нечетные удаляются \n");
         
-        // Список для хранения НЕЧЕТНЫХ объектов (они останутся)
+        // Список для хранения ЧЕТНЫХ объектов (они останутся)
         List<AutoObject> aliveObjects = new ArrayList<>();
         
         System.out.println("Создаем 10 объектов\n");
@@ -16,7 +16,6 @@ public class Gc3 {
         for (int i = 1; i <= 100; i++) {
             AutoObject obj = new AutoObject(i);
             
-            // Четные сохраняем в список (они останутся жить)
             if (i % 2 == 0) {
                 aliveObjects.add(obj);
                 
